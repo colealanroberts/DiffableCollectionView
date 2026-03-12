@@ -1,5 +1,5 @@
 //
-//  DiffableCollectionViewAdapter+Util.swift
+//  DiffableCollectionView.swift
 //  DiffableCollectionView
 //
 //  Created by Cole Roberts on 4/4/25.
@@ -27,7 +27,7 @@ struct DiffableCollectionView<Section: Hashable, ID: Hashable, Cell: View>: UIVi
     // MARK: - Private Properties
 
     let content: [DiffableCollectionViewContent<Section, ID>]
-    let properties: DiffableCollectionViewProperties<Section>
+    let properties: DiffableCollectionViewProperties<Section, ID>
     let cellBuilder: (Section, ID) -> Cell
 
     // MARK: - Init
@@ -35,9 +35,9 @@ struct DiffableCollectionView<Section: Hashable, ID: Hashable, Cell: View>: UIVi
     init(
         _ content: [DiffableCollectionViewContent<Section, ID>],
         @ViewBuilder cellBuilder: @escaping (Section, ID) -> Cell,
-        configure: (inout DiffableCollectionViewProperties<Section>) -> Void = { _ in }
+        configure: (inout DiffableCollectionViewProperties<Section, ID>) -> Void = { _ in }
     ) {
-        var properties = DiffableCollectionViewProperties<Section>()
+        var properties = DiffableCollectionViewProperties<Section, ID>()
         configure(&properties)
         self.properties = properties
         self.content = content
@@ -47,12 +47,12 @@ struct DiffableCollectionView<Section: Hashable, ID: Hashable, Cell: View>: UIVi
     // MARK: - Public Methods
 
     func makeCoordinator() -> DiffableCollectionViewAdapter<Section, ID, Cell> {
-        let layoutProvider = DiffableCollectionViewLayoutProvider(
+        let layoutProvider = DiffableCollectionViewLayoutProvider<Section, ID>(
             content: content,
             properties: properties
         )
 
-        return DiffableCollectionViewAdapter(
+        return DiffableCollectionViewAdapter<Section, ID, Cell>(
             layoutProvider: layoutProvider,
             properties: properties,
             cellBuilder: cellBuilder
@@ -67,8 +67,7 @@ struct DiffableCollectionView<Section: Hashable, ID: Hashable, Cell: View>: UIVi
         context.coordinator.performSnapshotUpdates(
             content,
             onWillPerformUpdates: { eventPair in
-//                dump(eventPair)
-                //properties.stateObserver.onWillPerformUpdates?(eventPair)
+                properties.stateObserver.onWillPerformUpdates?(eventPair)
             }
         )
     }

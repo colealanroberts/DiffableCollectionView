@@ -1,5 +1,5 @@
 //
-//  DiffableCollectionViewAdapter+Util.swift
+//  DiffableCollectionViewSnapshotScheduler.swift
 //  DiffableCollectionView
 //
 //  Created by Cole Roberts on 4/4/25.

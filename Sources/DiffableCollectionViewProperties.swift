@@ -1,5 +1,5 @@
 //
-//  DiffableCollectionViewAdapter+Util.swift
+//  DiffableCollectionViewProperties.swift
 //  DiffableCollectionView
 //
 //  Created by Cole Roberts on 4/4/25.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DiffableCollectionViewProperties<Section: Hashable> {
+struct DiffableCollectionViewProperties<Section: Hashable, ID: Hashable> {
 
     // MARK: - Public Properties
 
@@ -18,14 +18,14 @@ struct DiffableCollectionViewProperties<Section: Hashable> {
     var snapshotScheduler: DiffableCollectionViewSnapshotScheduler
 
     /// Yields scroll information through a series of closure-backed properties.
-    var stateObserver: DiffableCollectionViewStateObserver<Section>
+    var stateObserver: DiffableCollectionViewStateObserver<ID>
 
     // MARK: - Init
 
     init(
         layoutBuilder: @escaping (Section) -> DiffableCollectionViewLayout = { _ in .list() },
         snapshotScheduler: DiffableCollectionViewSnapshotScheduler = .main,
-        stateObserver: DiffableCollectionViewStateObserver<Section> = DiffableCollectionViewStateObserver()
+        stateObserver: DiffableCollectionViewStateObserver<ID> = DiffableCollectionViewStateObserver()
     ) {
         self.layoutBuilder = layoutBuilder
         self.snapshotScheduler = snapshotScheduler

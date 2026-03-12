@@ -1,5 +1,5 @@
 //
-//  DiffableCollectionViewAdapter+Util.swift
+//  DiffableCollectionViewLayoutProvider.swift
 //  DiffableCollectionView
 //
 //  Created by Cole Roberts on 4/4/25.
@@ -13,13 +13,13 @@ final class DiffableCollectionViewLayoutProvider<Section, ID> where Section: Has
     // MARK: - Private  Properties
 
     private let content: [DiffableCollectionViewContent<Section, ID>]
-    private let properties: DiffableCollectionViewProperties<Section>
+    private let properties: DiffableCollectionViewProperties<Section, ID>
 
     // MARK: - Init
 
     init(
         content: [DiffableCollectionViewContent<Section, ID>],
-        properties: DiffableCollectionViewProperties<Section>
+        properties: DiffableCollectionViewProperties<Section, ID>
     ) {
         self.content = content
         self.properties = properties

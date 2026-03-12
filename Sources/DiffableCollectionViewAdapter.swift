@@ -1,5 +1,5 @@
 //
-//  DiffableCollectionViewAdapter+Util.swift
+//  DiffableCollectionViewAdapter.swift
 //  DiffableCollectionView
 //
 //  Created by Cole Roberts on 4/4/25.
@@ -21,7 +21,7 @@ final class DiffableCollectionViewAdapter<Section: Hashable, ID: Hashable, Cell:
 
     private let cellBuilder: (Section, ID) -> Cell
     private let dataSource: DataSource<Section, ID>
-    private let properties: DiffableCollectionViewProperties<Section>
+    private let properties: DiffableCollectionViewProperties<Section, ID>
     private let layoutProvider: DiffableCollectionViewLayoutProvider<Section, ID>
     private let snapshotUpdater: DiffableCollectionViewSnapshotUpdater<Section, ID>
 
@@ -29,7 +29,7 @@ final class DiffableCollectionViewAdapter<Section: Hashable, ID: Hashable, Cell:
 
     init(
         layoutProvider: DiffableCollectionViewLayoutProvider<Section, ID>,
-        properties: DiffableCollectionViewProperties<Section>,
+        properties: DiffableCollectionViewProperties<Section, ID>,
         cellBuilder: @escaping (Section, ID) -> Cell
     ) {
         self.properties = properties
