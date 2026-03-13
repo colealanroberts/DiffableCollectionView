@@ -22,7 +22,7 @@ import UIKit
 /// ```swift
 /// ```
 ///
-struct DiffableCollectionView<Section: Hashable, ID: Hashable, Cell: View>: UIViewRepresentable {
+public struct DiffableCollectionView<Section: Hashable, ID: Hashable, Cell: View>: UIViewRepresentable {
 
     // MARK: - Private Properties
 
@@ -32,9 +32,9 @@ struct DiffableCollectionView<Section: Hashable, ID: Hashable, Cell: View>: UIVi
 
     // MARK: - Init
 
-    init(
+    public init(
         _ content: [DiffableCollectionViewContent<Section, ID>],
-        @ViewBuilder cellBuilder: @escaping (Section, ID) -> Cell,
+        @ViewBuilder cellBuilder: @escaping (_ section: Section, _ item: ID) -> Cell,
         configure: (inout DiffableCollectionViewProperties<Section, ID>) -> Void = { _ in }
     ) {
         var properties = DiffableCollectionViewProperties<Section, ID>()
@@ -46,7 +46,7 @@ struct DiffableCollectionView<Section: Hashable, ID: Hashable, Cell: View>: UIVi
 
     // MARK: - Public Methods
 
-    func makeCoordinator() -> DiffableCollectionViewAdapter<Section, ID, Cell> {
+    public func makeCoordinator() -> DiffableCollectionViewAdapter<Section, ID, Cell> {
         let layoutProvider = DiffableCollectionViewLayoutProvider<Section, ID>(
             content: content,
             properties: properties
@@ -59,11 +59,11 @@ struct DiffableCollectionView<Section: Hashable, ID: Hashable, Cell: View>: UIVi
         )
     }
 
-    func makeUIView(context: Context) -> UICollectionView {
+    public func makeUIView(context: Context) -> UICollectionView {
         context.coordinator.collectionView
     }
 
-    func updateUIView(_ uiView: UICollectionView, context: Context) {
+    public func updateUIView(_ uiView: UICollectionView, context: Context) {
         context.coordinator.performSnapshotUpdates(
             content,
             onWillPerformUpdates: { eventPair in

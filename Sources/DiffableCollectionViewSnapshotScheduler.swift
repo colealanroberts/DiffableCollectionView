@@ -17,7 +17,7 @@ import Foundation
 /// - Utilities:
 ///   - `qos(_:)`: Creates a new `SnapshotScheduler` with a random UUID-based queue name and the specified QoS.
 ///   - `background`: A predefined scheduler running on a background queue with `.background` QoS.
-enum DiffableCollectionViewSnapshotScheduler {
+public enum DiffableCollectionViewSnapshotScheduler {
     /// The main queue, i.e. `DispatchQueue.main/MainActor`.
     case main
 
@@ -26,11 +26,11 @@ enum DiffableCollectionViewSnapshotScheduler {
 
     // MARK: - SnapshotScheduler+Util
 
-    static func qos(_ qos: DispatchQoS) -> Self {
+    public static func qos(_ qos: DispatchQoS) -> Self {
         .queue(name: UUID().uuidString, qos: qos)
     }
 
-    static var background: Self {
+    public static var background: Self {
         .queue(name: UUID().uuidString, qos: .background)
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DiffableCollectionViewProperties<Section: Hashable, ID: Hashable> {
+public struct DiffableCollectionViewProperties<Section: Hashable, ID: Hashable> {
 
     // MARK: - Public Properties
 
@@ -22,7 +22,7 @@ struct DiffableCollectionViewProperties<Section: Hashable, ID: Hashable> {
 
     // MARK: - Init
 
-    init(
+    public init(
         layoutBuilder: @escaping (Section) -> DiffableCollectionViewLayout = { _ in .list() },
         snapshotScheduler: DiffableCollectionViewSnapshotScheduler = .main,
         stateObserver: DiffableCollectionViewStateObserver<ID> = DiffableCollectionViewStateObserver()

@@ -11,7 +11,7 @@ typealias Snapshot = NSDiffableDataSourceSnapshot
 typealias DataSource = UICollectionViewDiffableDataSource
 typealias CellRegistration = UICollectionView.CellRegistration
 
-final class DiffableCollectionViewAdapter<Section: Hashable, ID: Hashable, Cell: View>: NSObject, UICollectionViewDelegate {
+public final class DiffableCollectionViewAdapter<Section: Hashable, ID: Hashable, Cell: View>: NSObject, UICollectionViewDelegate {
 
     // MARK: - Public Properties
 
@@ -68,13 +68,13 @@ final class DiffableCollectionViewAdapter<Section: Hashable, ID: Hashable, Cell:
 
     // MARK: - UIScrollViewDelegate
 
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         properties.stateObserver.onDidScroll?()
     }
 
     // MARK: - UICollectionViewDelegate
 
-    func collectionView(
+    public func collectionView(
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {

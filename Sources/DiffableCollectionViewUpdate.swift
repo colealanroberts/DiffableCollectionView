@@ -15,7 +15,7 @@ import Foundation
 ///
 /// - Parameters:
 ///   - _ID: The unique identifier type for the items being updated. Must conform to `Hashable` and `Sendable`.
-struct DiffableCollectionViewUpdate<_ID: Hashable & Sendable>: Sendable {
+public struct DiffableCollectionViewUpdate<_ID: Hashable> {
     /// A unique identifier for the event.
     let uuid = UUID()
 
@@ -29,7 +29,7 @@ struct DiffableCollectionViewUpdate<_ID: Hashable & Sendable>: Sendable {
 
     /// A convenience initializer for an event that inserts `0` items,
     /// but ensures the correct section layout.
-    init(
+    public init(
         animated: Bool = true
     ) {
         self.event = .append(ids: [])
@@ -48,8 +48,8 @@ struct DiffableCollectionViewUpdate<_ID: Hashable & Sendable>: Sendable {
 
     /// Appends new items to the collection.
     /// - Parameter `_ID`: The identifiers of the items to append.
-    static func append(
-        ids: [_ID],
+    public static func append(
+        ids: _ID...,
         animated: Bool = true
     ) -> Self {
         self.init(event: .append(ids: ids), animated: animated)
@@ -58,7 +58,46 @@ struct DiffableCollectionViewUpdate<_ID: Hashable & Sendable>: Sendable {
     /// Reconfigures existing items without reloading them.
     /// - Note: This is a more efficient way to update content without causing a visible refresh or flash in the UI.
     /// - Parameter `_ID`: The identifiers of the items to reconfigure.
-    static func reconfigure(
+    public static func reconfigure(
+        ids: _ID...,
+        animated: Bool = true
+    ) -> Self {
+        self.reconfigure(ids: ids, animated: true)
+    }
+
+    /// Reloads existing items in the collection.
+    /// This operation replaces the current content of the specified items, potentially causing a visible refresh.
+    /// - Note: In general, opt to use `reconfigure(identifiers:)`
+    /// - Parameter `_ID`: The identifiers of the items to reload
+    public static func reload(
+        ids: _ID...,
+        animated: Bool = true
+    ) -> Self {
+        self.reload(ids: ids, animated: animated)
+    }
+
+    /// Deletes items from the collection.
+    /// - Parameter `_ID`: The identifiers of the items to delete.
+    public static func delete(
+        ids: _ID...,
+        animated: Bool = true
+    ) -> Self {
+        self.delete(ids: ids, animated: animated)
+    }
+
+    /// Replaces items from the collection.
+    /// - Parameter `_ID`: The identifiers of the items used to replace.
+    public static func replace(
+        ids: _ID...,
+        animated: Bool = true
+    ) -> Self {
+        self.replace(ids: ids, animated: animated)
+    }
+
+    /// Reconfigures existing items without reloading them.
+    /// - Note: This is a more efficient way to update content without causing a visible refresh or flash in the UI.
+    /// - Parameter `_ID`: The identifiers of the items to reconfigure.
+    public static func reconfigure(
         ids: [_ID],
         animated: Bool = true
     ) -> Self {
@@ -69,7 +108,7 @@ struct DiffableCollectionViewUpdate<_ID: Hashable & Sendable>: Sendable {
     /// This operation replaces the current content of the specified items, potentially causing a visible refresh.
     /// - Note: In general, opt to use `reconfigure(identifiers:)`
     /// - Parameter `_ID`: The identifiers of the items to reload
-    static func reload(
+    public static func reload(
         ids: [_ID],
         animated: Bool = true
     ) -> Self {
@@ -78,31 +117,38 @@ struct DiffableCollectionViewUpdate<_ID: Hashable & Sendable>: Sendable {
 
     /// Deletes items from the collection.
     /// - Parameter `_ID`: The identifiers of the items to delete.
-    static func delete(
+    public static func delete(
         ids: [_ID],
         animated: Bool = true
     ) -> Self {
         .init(event: .delete(ids: ids), animated: animated)
     }
 
-    /// Replaecs items from the collection.
+    /// Replaces items from the collection.
     /// - Parameter `_ID`: The identifiers of the items used to replace.
-    static func replace(
+    public static func replace(
         ids: [_ID],
         animated: Bool = true
     ) -> Self {
         .init(event: .replace(ids: ids), animated: animated)
+    }
+
+    /// A utility method for resetting all elements.
+    public static func removeAll(
+        animated: Bool = true
+    ) -> Self {
+        .init(event: .replace(ids: []), animated: animated)
     }
 }
 
 // MARK: - DiffableCollectionViewUpdate+Hashable
 
 extension DiffableCollectionViewUpdate: Hashable {
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(uuid)
     }
 
-    static func ==(lhs: Self, rhs: Self) -> Bool {
+    public static func ==(lhs: Self, rhs: Self) -> Bool {
         lhs.uuid == rhs.uuid
     }
 }

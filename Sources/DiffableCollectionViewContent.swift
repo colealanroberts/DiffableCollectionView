@@ -20,7 +20,7 @@ import SwiftUI
 ///   - _ID: The type used to uniquely identify items within the section. Must conform to `Hashable`.
 ///
 /// - Note: Both `_Section` and `_ID` must conform to `Hashable`.
-struct DiffableCollectionViewContent<_Section: Hashable, _ID: Hashable> {
+public struct DiffableCollectionViewContent<_Section: Hashable, _ID: Hashable> {
     let section: _Section
     let update: Binding<DiffableCollectionViewUpdate<_ID>>
 
@@ -35,7 +35,7 @@ struct DiffableCollectionViewContent<_Section: Hashable, _ID: Hashable> {
 
 // MARK: - CollectionView.Content+Util
 
-extension DiffableCollectionViewContent {
+public extension DiffableCollectionViewContent {
     static func section(
         _ section: _Section,
         update: Binding<DiffableCollectionViewUpdate<_ID>>

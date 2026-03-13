@@ -8,7 +8,7 @@
 import UIKit
 
 /// Contains layout information for a specific section.
-struct DiffableCollectionViewLayout {
+public struct DiffableCollectionViewLayout {
     /// A typealias for `UICollectionLayoutSectionOrthogonalScrollingBehavior`.
     public typealias ScrollingBehavior = UICollectionLayoutSectionOrthogonalScrollingBehavior
 
@@ -123,7 +123,7 @@ struct DiffableCollectionViewLayout {
 
 // MARK: - DiffableCollectionViewLayout+Composition
 
-extension DiffableCollectionViewLayout {
+public extension DiffableCollectionViewLayout {
     enum Composition {
         /// Arranges its content uniformly in a grid
         /// with the specified number of columns.
@@ -149,7 +149,7 @@ extension DiffableCollectionViewLayout {
 
 // MARK: - DiffableCollectionViewLayout+Size
 
-extension DiffableCollectionViewLayout {
+public extension DiffableCollectionViewLayout {
     /// The size of the section.
     /// - Note: If the direction is `.vertical`, the section
     /// consumes as much space as necessary.
@@ -172,7 +172,7 @@ extension DiffableCollectionViewLayout {
 // MARK: - NSDirectionalEdgeInsets+Util
 
 /// A utility extension to simplify the creation of `NSDirectionalEdgeInsets` with uniform, horizontal, or vertical values.
-extension NSDirectionalEdgeInsets {
+public extension NSDirectionalEdgeInsets {
 
     /// Creates edge insets where all sides (top, leading, bottom, trailing) are equal.
     /// - Parameter value: The inset value to apply to all sides.
